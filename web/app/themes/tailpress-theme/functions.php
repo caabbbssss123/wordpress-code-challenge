@@ -109,3 +109,42 @@ function tailpress_nav_menu_add_submenu_class( $classes, $args, $depth ) {
 }
 
 add_filter( 'nav_menu_submenu_css_class', 'tailpress_nav_menu_add_submenu_class', 10, 3 );
+
+function records_cpt() {
+    $labels = array(
+        'name'                  => _x('Records', 'Post type general name', 'tailpress'),
+        'singular_name'         => _x('Record', 'Post type singular name', 'tailpress'),
+        'menu_name'             => _x('Records', 'Admin Menu text', 'tailpress'),
+        'name_admin_bar'        => _x('Record', 'Add New on admin bar', 'tailpress'),
+        'add_new'               => _x('Add New', 'Record', 'tailpress'),
+        'add_new_item'          => __('Add New Record', 'tailpress'),
+        'new_item'              => __('New Record', 'tailpress'),
+        'edit_item'             => __('Edit Record', 'tailpress'),
+        'view_item'             => __('View Record', 'tailpress'),
+        'all_items'             => __('All Records', 'tailpress'),
+        'search_items'          => __('Search Records', 'tailpress'),
+        'parent_item_colon'     => __('Parent Records:', 'tailpress'),
+        'not_found'             => __('No records found.', 'tailpress'),
+        'not_found_in_trash'    => __('No records found in Trash.', 'tailpress'),
+    );
+
+    $args = array(
+        'labels'                => $labels,
+        'public'                => true,
+        'publicly_queryable'    => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'query_var'             => true,
+        'rewrite'               => array('slug' => 'records'),
+        'capability_type'       => 'post',
+        'has_archive'           => true,
+        'hierarchical'          => false,
+        'menu_position'         => 5,
+        'supports'              => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+        'show_in_rest'          => true,
+    );
+
+    register_post_type('records', $args);
+}
+
+add_action('init', 'records_cpt');
